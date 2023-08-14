@@ -1,0 +1,25 @@
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://${IDP_HOST}:${IDP_PORT}
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate.ddl-auto: update
+
+  cloud:
+    stream:
+      bindings:
+        signup-in-0:
+          destination: signup
+          group: account
+        signup-out-0:
+          destination: signup
+      source: signup
+
+  kafka:
+    bootstrap-servers:
+      ${BROKER_HOST}: ${BROKER_PORT}
